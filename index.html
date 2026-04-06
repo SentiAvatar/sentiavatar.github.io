@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentiAvatar: Towards Expressive and Interactive Digital Humans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SentiAvatar</a>
+  <ul class="nav-links">
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#dataset">Dataset</a></li>
+    <li><a href="#method">Method</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#citation">Citation</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>SentiAvatar: Towards Expressive and Interactive Digital Humans</h1>
+
+  <div class="authors">
+    <a href="#">Chuhao Jin</a><sup>1,2,*</sup>&ensp;
+    <a href="#">Rui Zhang</a><sup>2,*</sup>&ensp;
+    <a href="#">Qingzhe Gao</a><sup>2</sup>&ensp;
+    <a href="#">Haoyu Shi</a><sup>3</sup>&ensp;
+    <a href="#">Dayu Wu</a><sup>2</sup>
+    <br>
+    <a href="#">Yichen Jiang</a><sup>2</sup>&ensp;
+    <a href="#">Yihan Wu</a><sup>1</sup>&ensp;
+    <a href="#">Ruihua Song</a><sup>1,†</sup>
+  </div>
+  <div class="affiliations">
+    <sup>1</sup>&thinsp;Gaoling School of Artificial Intelligence, Renmin University of China<br>
+    <sup>2</sup>&thinsp;SentiPulse<br>
+    <sup>3</sup>&thinsp;College of Computer Science, Inner Mongolia University<br>
+    <span style="font-size:0.75rem;">*&thinsp;Equal contribution. Chuhao Jin led this project.&ensp; †&thinsp;Corresponding author.</span>
+  </div>
+
+  <div class="btn-group">
+    <a href="https://arxiv.org/abs/2604.02908" class="btn btn-primary" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      arXiv
+    </a>
+    <a href="#None" class="btn btn-outline" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      Code
+    </a>
+    <a href="#" class="btn btn-outline" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Dataset
+    </a>
+    <a href="#demo" class="btn btn-outline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Demo Video
+    </a>
+  </div>
+</div>
+
+<!-- TEASER VIDEO -->
+<div class="teaser-wrap" id="demo">
+  <div class="video-full">
+    <video autoplay muted loop playsinline controls>
+      <source src="./assets/main_video.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<!-- ABSTRACT -->
+<section class="sec" id="abstract" style="padding-bottom: 0;">
+  <hr class="sec-rule">
+  <h2>Abstract</h2>
+  <div class="abstract-box" style="text-align: justify;">
+    We present <strong>SentiAvatar</strong>, a framework for building expressive interactive 3D digital humans, and use it to create <strong>SuSu</strong>,
+    a virtual character that speaks, gestures, and emotes in real time. Achieving such a system remains challenging, as it requires jointly addressing
+    three key problems: the lack of large-scale high-quality multimodal data, robust semantic-to-motion mapping, and fine-grained frame-level motion-prosody synchronization.
+    To solve these problems, first, we build <strong>SuSuInterActs</strong> (21K clips, 37 hours),
+    a dialogue corpus captured via optical motion capture around a single character with synchronized speech, full-body motion, and facial expressions.
+    Second, we pre-train a <strong>Motion Foundation Model</strong> on 200K+ motion sequences, equipping it with rich action priors that go well
+    beyond the conversation. We then propose an audio-aware <strong>plan-then-infill</strong> architecture that decouples sentence-level semantic
+    planning from frame-level prosody-driven interpolation, so that generated motions are both semantically appropriate and rhythmically aligned with speech.
+    Experiments show that SentiAvatar achieves state-of-the-art on both SuSuInterActs (R@1 43.64%, nearly 2× the best baseline) and BEATv2 (FGD 4.941, BC 8.078),
+    producing 6 s of output in 0.3 s with unlimited multi-turn streaming.
+  </div>
+</section>
+
+<!-- DATASET -->
+<div id="dataset" style="padding:72px 0;margin-bottom:0;"></div>
+<section class="sec-dataset" style="padding-bottom:72px;">
+  <hr class="sec-rule">
+  <h2>Dataset</h2>
+  <p style="text-align:center;">
+    We curate <strong>SuSuInterActs</strong>, a dialogue corpus captured via optical motion capture
+    around a single character with synchronized speech, full-body motion, and facial expressions.
+    Below are representative examples from our dataset, each with the corresponding action/expression label and dialogue text.
+    <br><em style="font-size:0.85rem;color:var(--light);">🔊 Hover over a video to play with audio. Only the hovered video will play sound.</em>
+  </p>
+
+  <div class="dataset-cases">
+
+    <!-- Case 1 -->
+    <div class="case-card">
+      <div class="case-video">
+        <video muted loop playsinline preload="metadata">
+          <source src="case/250804_58-2_02_gt.mp4" type="video/mp4">
+        </video>
+        <div class="play-overlay">
+          <svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21"/></svg>
+        </div>
+      </div>
+      <div class="case-info">
+        <div class="case-tag action-tag">动作：摊手表示无奈</div>
+        <div class="case-dialogue">不然呢，我又不能出门。</div>
+      </div>
+    </div>
+
+    <!-- Case 2: commented out -->
+    <!--
+    <div class="case-card">
+      <div class="case-video">
+        <video muted loop playsinline preload="metadata">
+          <source src="case/250804_103-2_01_gt.mp4" type="video/mp4">
+        </video>
+        <div class="play-overlay">
+          <svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21"/></svg>
+        </div>
+      </div>
+      <div class="case-info">
+        <div class="case-tag expression-tag">表情：抗拒</div>
+        <div class="case-dialogue">跟我有什么关系？我又出不去。</div>
+      </div>
+    </div>
+    -->
+
+    <!-- Case 3 -->
+    <div class="case-card">
+      <div class="case-video">
+        <video muted loop playsinline preload="metadata">
+          <source src="case/0916_237_2_8_01_gt.mp4" type="video/mp4">
+        </video>
+        <div class="play-overlay">
+          <svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21"/></svg>
+        </div>
+      </div>
+      <div class="case-info">
+        <div class="case-tag action-tag">动作：双臂优雅地向两侧展开，身体轻盈地旋转，划出一个漂亮的圆弧。</div>
+        <div class="case-dialogue">看好了，这可是限定款的特殊穿法。</div>
+      </div>
+    </div>
+
+    <!-- Case 4 -->
+    <div class="case-card">
+      <div class="case-video">
+        <video muted loop playsinline preload="metadata">
+          <source src="case/0916_151_4_1_01_XG_gt.mp4" type="video/mp4">
+        </video>
+        <div class="play-overlay">
+          <svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21"/></svg>
+        </div>
+      </div>
+      <div class="case-info">
+        <div class="case-tag action-tag">动作：双臂缓缓抬起，在身前交错，像在拥抱一个不存在的人。</div>
+        <div class="case-dialogue">好啦，我的即兴表演结束了，观众是不是该给点掌声？</div>
+      </div>
+    </div>
+
+    <!-- Case 5 -->
+    <div class="case-card">
+      <div class="case-video">
+        <video muted loop playsinline preload="metadata">
+          <source src="case/0916_158_4_5_01_XG_gt.mp4" type="video/mp4">
+        </video>
+        <div class="play-overlay">
+          <svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21"/></svg>
+        </div>
+      </div>
+      <div class="case-info">
+        <div class="case-tag action-tag">动作：身体大幅度地左右倾斜，手臂随着身体摆动。</div>
+        <div class="case-dialogue">哎呀，从这边好像也看不到，你挪一下嘛。</div>
+      </div>
+    </div>
+
+    <!-- Case 6 -->
+    <div class="case-card">
+      <div class="case-video">
+        <video muted loop playsinline preload="metadata">
+          <source src="case/1021_302_4_14_01_XG_gt.mp4" type="video/mp4">
+        </video>
+        <div class="play-overlay">
+          <svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21"/></svg>
+        </div>
+      </div>
+      <div class="case-info">
+        <div class="case-tag action-tag">动作：双臂从身体两侧缓缓举过头顶，再像流水一样顺着身体滑落下来。</div>
+        <div class="case-dialogue">下次走路小心点，我的舞蹈表演可不是免费的。</div>
+      </div>
+    </div>
+
+    <!-- Case 7 -->
+    <div class="case-card">
+      <div class="case-video">
+        <video muted loop playsinline preload="metadata">
+          <source src="case/0916_322_1_4_01_XC_gt.mp4" type="video/mp4">
+        </video>
+        <div class="play-overlay">
+          <svg viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21"/></svg>
+        </div>
+      </div>
+      <div class="case-info">
+        <div class="case-tag action-tag">动作：高抬腿在原地踏步，双臂配合着大幅度摆动，像一个凯旋的士兵。</div>
+        <div class="case-dialogue">那当然，它可是负责赶走你所有烦恼的卫兵呢。</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- METHOD -->
+<div id="method" style="padding:72px 0;margin-bottom:0;"></div>
+<section class="sec-content" style="padding-bottom:0;">
+  <hr class="sec-rule">
+  <h2>Method</h2>
+  <p>
+    Overview of SentiAvatar. (a) Multi-modal inputs are quantized into tokens via encoders. The body pathway employs a
+    hierarchical generation: (b) LLM planner predicts sparse keyframe tokens to capture high-level dialogue content, followed by
+    (c) an audio-aware Infill Transformer for dense, prosody-driven interpolation to ensure fine-grained temporal synchronization.
+  </p>
+
+  <div style="height: 24px;"></div>
+
+  <div class="image-full">
+    <img src="assets/main_framework.png" alt="SentiAvatar Method Overview" style="width:100%; height:auto;">
+  </div>
+</section>
+
+<!-- QUALITATIVE ANALYSIS -->
+<div id="qualitative" style="padding:72px 0;margin-bottom:0;"></div>
+<section class="sec-content" style="padding-bottom:0;">
+  <hr class="sec-rule">
+  <h2>Qualitative Analysis</h2>
+  <p>
+    Qualitative comparison of generated motions across methods. Each row shows keyframe sequences for a given motion and speech.
+    Texts and arrows of the same color indicate the same time step. The red arrow indicates an incorrect action.
+  </p>
+
+  <div style="height: 24px;"></div>
+
+  <div class="image-full">
+    <img src="assets/case_study2.png" alt="Qualitative comparison of generated motions" style="width:100%; height:auto;">
+  </div>
+</section>
+
+<!-- QUANTITATIVE RESULTS -->
+<div id="results" style="padding:72px 0;margin-bottom:0;"></div>
+<section class="sec-content" style="padding-bottom:0;">
+  <hr class="sec-rule">
+  <h2>Quantitative Results</h2>
+  <p>
+    Quantitative comparison on SuSuInterActs. <strong>Bold</strong>: best; ↑/↓: higher/lower is better. ESD in seconds. "†" indicates T2M-GPT variants with token-by-token autoregressive generation.
+  </p>
+
+  <div style="overflow-x:auto; margin-top:24px;">
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Condition</th>
+          <th>R@1 ↑</th>
+          <th>R@2 ↑</th>
+          <th>R@3 ↑</th>
+          <th>FID ↓</th>
+          <th>ESD ↓</th>
+          <th>Diversity ↑</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="real-row">
+          <td>Real Motion</td>
+          <td>—</td>
+          <td>62.20</td>
+          <td>73.56</td>
+          <td>78.70</td>
+          <td>0.000</td>
+          <td>0.308</td>
+          <td>22.61</td>
+        </tr>
+        <tr class="group-header"><td colspan="8"><em>Audio-only methods</em></td></tr>
+        <tr>
+          <td>EMAGE</td>
+          <td>Audio</td>
+          <td>5.00</td>
+          <td>9.40</td>
+          <td>13.32</td>
+          <td>441.6</td>
+          <td>0.606</td>
+          <td>12.92</td>
+        </tr>
+        <tr>
+          <td>A2M-GPT<sup>†</sup></td>
+          <td>Audio</td>
+          <td>8.72</td>
+          <td>15.96</td>
+          <td>20.08</td>
+          <td>13.66</td>
+          <td>0.477</td>
+          <td>22.23</td>
+        </tr>
+        <tr class="group-header"><td colspan="8"><em>Text-only methods</em></td></tr>
+        <tr>
+          <td>HunYuan-Motion</td>
+          <td>Text</td>
+          <td>5.21</td>
+          <td>8.59</td>
+          <td>11.9</td>
+          <td>352.56</td>
+          <td>0.708</td>
+          <td>16.92</td>
+        </tr>
+        <tr>
+          <td>T2M-GPT</td>
+          <td>Text</td>
+          <td>23.12</td>
+          <td>30.49</td>
+          <td>35.43</td>
+          <td>67.78</td>
+          <td>0.721</td>
+          <td>20.65</td>
+        </tr>
+        <tr>
+          <td>MoMask</td>
+          <td>Text</td>
+          <td>34.55</td>
+          <td>46.58</td>
+          <td>54.29</td>
+          <td>36.25</td>
+          <td>0.471</td>
+          <td>22.03</td>
+        </tr>
+        <tr class="group-header"><td colspan="8"><em>Audio + Text methods</em></td></tr>
+        <tr>
+          <td>AT2M-GPT<sup>†</sup></td>
+          <td>Audio, Text</td>
+          <td>27.52</td>
+          <td>36.11</td>
+          <td>41.38</td>
+          <td>18.491</td>
+          <td>0.503</td>
+          <td>22.36</td>
+        </tr>
+        <tr class="ours-row">
+          <td><strong>SentiAvatar (Ours)</strong></td>
+          <td>Audio, Text</td>
+          <td><strong>43.64</strong></td>
+          <td><strong>54.94</strong></td>
+          <td><strong>61.84</strong></td>
+          <td><strong>8.912</strong></td>
+          <td><strong>0.456</strong></td>
+          <td><strong>22.41</strong></td>
+        </tr>
+        <tr class="improve-row">
+          <td colspan="2"><strong>Improvement (%)</strong></td>
+          <td><strong>+26.3</strong></td>
+          <td><strong>+17.9</strong></td>
+          <td><strong>+13.9</strong></td>
+          <td><strong>+34.8</strong></td>
+          <td><strong>+3.2</strong></td>
+          <td><strong>+0.2</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<div id="conclusion" style="padding:72px 0;margin-bottom:0;"></div>
+<section class="sec" style="padding-bottom:0;">
+  <hr class="sec-rule">
+  <h2>Conclusion</h2>
+  <div class="abstract-box" style="text-align: justify;">
+    In this paper, we presented <strong>SentiAvatar</strong>, a novel framework for building highly expressive, interactive 3D digital humans, demonstrated through our real-time character, SuSu.
+    To address the scarcity of interactive conversational data and the challenges of motion-prosody synchronization, we introduced <strong>SuSuInterActs</strong>, a 37-hour multimodal dialogue corpus,
+    and proposed a <strong>plan-then-infill</strong> architecture powered by a pre-trained Motion Foundation Model on over 200K sequences.
+    This design effectively decouples high-level semantic planning from frame-level audio-driven interpolation, ensuring that the generated motions are both contextually accurate and rhythmically aligned with speech.
+    Experiments demonstrate that SentiAvatar achieves state-of-the-art performance on both SuSuInterActs and BEATv2.
+    With highly efficient generation (0.3 s for 6 s of output) and open-sourced resources, our work provides a robust foundation for future research in natural, real-time virtual human interactions.
+  </div>
+</section>
+
+<!-- CITATION -->
+<section class="sec" id="citation" style="margin-top:72px;">
+  <hr class="sec-rule">
+  <h2>Citation</h2>
+  <p>If you find this work useful in your research, please cite:</p>
+  <div class="bibtex" id="bibtex-block">
+    <button class="copy-btn" onclick="copyBib()">Copy</button>
+@misc{jin2026sentiavatarexpressiveinteractivedigital,
+      title={SentiAvatar: Towards Expressive and Interactive Digital Humans}, 
+      author={Chuhao Jin and Rui Zhang and Qingzhe Gao and Haoyu Shi and Dayu Wu and Yichen Jiang and Yihan Wu and Ruihua Song},
+      year={2026},
+      eprint={2604.02908},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2604.02908}, 
+}</div>
+</section>
+
+<footer>
+  <p>
+    &copy; 2026 SentiAvatar Authors &nbsp;&middot;&nbsp;
+    <a href="https://arxiv.org/abs/2604.02908">Paper</a> &nbsp;&middot;&nbsp;
+    <a href="https://github.com/yourorg/yourrepo">Code</a> &nbsp;&middot;&nbsp;
+    <a href="#">Dataset</a>
+  </p>
+  <p style="margin-top:6px;">
+    <a href="https://sentiavatar.github.io">https://sentiavatar.github.io</a>
+  </p>
+</footer>
+
+<script>
+// ── Hover-to-play with audio (only the hovered video gets sound) ──
+document.querySelectorAll('.case-card').forEach(card => {
+  const vid = card.querySelector('video');
+  const overlay = card.querySelector('.play-overlay');
+  if (!vid) return;
+
+  card.addEventListener('mouseenter', () => {
+    // Mute all other videos first
+    document.querySelectorAll('.case-card video').forEach(v => {
+      if (v !== vid) { v.muted = true; v.pause(); v.currentTime = 0; }
+      const otherOverlay = v.closest('.case-video')?.querySelector('.play-overlay');
+      if (otherOverlay && v !== vid) otherOverlay.style.opacity = '1';
+    });
+    // Play this video with sound
+    vid.currentTime = 0;
+    vid.muted = false;
+    vid.play().catch(() => {});
+    overlay.style.opacity = '0';
+  });
+
+  card.addEventListener('mouseleave', () => {
+    vid.pause();
+    vid.muted = true;
+    vid.currentTime = 0;
+    overlay.style.opacity = '1';
+  });
+});
+
+function copyBib() {
+  const text = document.getElementById('bibtex-block').innerText.replace('Copy\n','').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    const b = document.querySelector('.copy-btn');
+    b.textContent = 'Copied!';
+    setTimeout(() => b.textContent = 'Copy', 2000);
+  });
+}
+
+// Fade-in on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'none';
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.sec, .sec-content, .sec-dataset, .teaser-wrap').forEach(el => {
+  el.style.cssText += 'opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease;';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
