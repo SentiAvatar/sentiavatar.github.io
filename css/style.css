@@ -60,7 +60,7 @@ nav {
 /* SECTIONS — all use same consistent width except dataset */
 .sec { max-width: var(--content-width); margin: 0 auto; padding: 0 2rem 72px; }
 .sec-content { max-width: var(--content-width); margin: 0 auto; padding: 0 2rem 72px; }
-.sec-dataset { max-width: var(--dataset-width); margin: 0 auto; padding: 0 2rem 72px; }
+.sec-dataset { max-width: var(--content-width); margin: 0 auto; padding: 0 2rem 72px; }
 
 .sec-rule { border: none; border-top: 1px solid var(--border); margin-bottom: 44px; }
 .sec h2, .sec-content h2, .sec-dataset h2, section h2 {
@@ -91,11 +91,11 @@ nav {
   margin-bottom: 36px;
 }
 
-/* DATASET CASES — wider grid */
+/* DATASET CASES — 2x2 grid layout */
 .dataset-cases {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
   margin-top: 30px;
 }
 
